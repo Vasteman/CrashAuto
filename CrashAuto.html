@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>КрэшАвто</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style/style.css">
+  <script src="script/jquery/jquery-3.3.1.min.js" defer></script>
+  <script src="script/script-jquery.js" defer></script>
+  <script src="script/calculator-jquery.js" defer></script>
+  <script src="script/formPoster-jquery.js" defer></script>
+  <script src="script/dragndrop.js" async></script>
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+  <header class="header clearfix"><a name="top"></a>
+    <div class="container">
+      <div class="logo">
+        <img src="img/header/logo.svg">
+      </div>
+      <nav class="header-menu">
+        <ul>
+          <li><a href="#service">Наши услуги</a></li>
+          <li><a href="#calculator">Расчет стоимости</a></li>
+          <li><a href="#advices">Советы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="contact">
+        <img src="img/header/phone.svg">
+        <div class="number">+7 (928) 902-78-81</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article class="promo">
+      <div class="big-container">
+        <div class="container">
+          <div class="question">
+            <h2>Cрочно продать
+              <br>автомобиль после ДТП?</h2>
+          </div>
+          <div class="oferta">
+            <p>Выкупим Ваш автомобиль с любыми повреждениями или поломкой в день обращения!</p>
+          </div>
+          <div class="buttons">
+            <a href="https://wa.me/79896279597?text=Опишите%20ваши%20хотелки%20" target="_blank">
+              <div class="btn btn-whatsup">Написать в WhatsApp</div>
+            </a>
+            <div class="btn btn-call-request button-open">
+              Заказать звонок
+              <img src="img/promo/phone-request-back.svg">
+              <img class="phone" src="img/promo/phone-request.svg">
+            </div>
+            <div class="modal">
+              <div class="modal__content">
+                <h2 class="visually-hidden">Заказать звонок</h2>
+
+                <form class="request-call-form" method="POST" target="area">
+                  <p class="super-forma">Введите свои контактные данные:</p>
+                  <div class="form clearfix">
+                    <div class="half-form-group">
+                      <label for="name">Ваше имя</label><br>
+                      <input type="text" id="name" placeholder="Иван">
+                    </div>
+                    <div class="half-form-group">
+                      <label for="phone">Ваш телефон</label><br>
+                      <input type="tel" id="phone" placeholder="+7 (919) 899-95-60">
+                    </div>
+                  </div>
+                  <input class="btn btn-call-request" type="submit" value="Отправить">
+                  <input class="btn btn-cancel button-close" type="button" value="Отмена">
+                </form>
+                <button class="modal__button button-close" type="button" value="Закрыть">X</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="open-more">
+          <img class="paper" src="img/promo/open.svg">
+          <a href="#contacts"><img class="button" src="img/promo/open-button.svg"></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="price-calculator"><a name="calculator"></a>
+      <div class="container">
+        <form class="form">
+          <div class="form-top clearfix">
+            <div class="half-form left-form">
+              <h3>Расчитайте<br> примерную стоимость</h3>
+              <div class="form-group clearfix">
+                <div class="half-form-group">
+                  <label for="phone">Ваш телефон</label><br>
+                  <input type="tel" id="phone" placeholder="+7 (919) 899-95-60">
+                </div>
+                <div class="half-form-group">
+                  <label for="market-price">Рыночная стоимость автомобиля</label><br>
+                  <input type="number" id="market-price" placeholder="Р 800 000">
+                </div>
+              </div>
+              <div class="dragndrop-zone" id="dropZone">
+                <div class="progress" hidden>
+                  <span class="uploading">Идёт загрузка...</span>
+                  <progress id="progress-bar" max=100 value=0></progress>
+                </div>
+                <div class="dragndrop-default">
+                  <div class="dragndrop-default-info">
+                    <img src="img/calculator/file-plus.svg"><br>
+                    <p>Перетащите фото сюда, или <label for="fileElem">загрузите</label><br><br></p>
+                  </div>
+                  <!--<input type="file" accept="image/jpeg,image/png,image/gif">-->
+                  <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" hidden>
+                  <!--<label class="btn" for="fileElem">Выбрать изображения</label><br><br>-->
+
+                </div>
+              </div>
+              <div class="dragndrop-info" hidden>
+                <img src="img/calculator/clip.svg">Добавлено <span class="photo-amount">0</span> фото
+              </div>
+            </div>
+            <div class="half-form right-form">
+              <div class="radio-menu clearfix">
+                <ul class="radio-list">
+                  <li>
+                    <input type="radio" name="auto-element" value="1" id="engine" checked>
+                    <label for="engine"><img src="img/calculator/engine.svg"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="auto-element" value="2" id="transmission">
+                    <label for="transmission"><img src="img/calculator/transmission.svg"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="auto-element" value="3" id="car-body">
+                    <label for="car-body"><img src="img/calculator/car-body.svg"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="auto-element" value="4" id="seat">
+                    <label for="seat"><img src="img/calculator/seat.svg"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="auto-element" value="5" id="power">
+                    <label for="power"><img src="img/calculator/power.svg"></label>
+                  </li>
+                  <li>
+                    <input type="radio" name="auto-element" value="6" id="other">
+                    <label for="other"><img src="img/calculator/other.svg"></label>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-for-choose">
+                <div class="chosen-amount clearfix">Выбрано <span class='amount'>0</span></div>
+                <ul>
+                  <li>
+                    <div class="title clearfix">
+                      <h4>Двигатель</h4>
+                    </div>
+                    <div class="variants">
+                      <div class="form-group">
+                        <input type="checkbox" name="crankshaft" id="crankshaft" value="100">
+                        <label for="crankshaft">Коленчатый вал<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="combustion-chamber" id="combustion-chamber" value="100">
+                        <label for="combustion-chamber">Камера сгорания<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="piston" id="piston" value="100">
+                        <label for="piston">Поршни<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="GBC" id="GBC" value="100">
+                        <label for="GBC">ГБЦ<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="valve-actuator" id="valve-actuator" value="100">
+                        <label for="valve-actuator">Привод клапанов<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="camshaft" id="camshaft" value="100">
+                        <label for="camshaft">Распредвал<img src="img/calculator/cross.svg"></label>
+                      </div>
+                    </div>
+                  </li>
+                  <li hidden="true">
+                    <div class="title clearfix">
+                      <h4>Трансмиссия</h4>
+                    </div>
+                    <div class="variants">
+                      <div class="form-group">
+                        <input type="checkbox" name="mechanic" id="mechanic" value="100">
+                        <label for="mechanic">Механическая<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="auto-hydro" id="auto-hydro" value="100">
+                        <label for="auto-hydro">АКПП гидро<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="auto-variative" id="auto-variative" value="100">
+                        <label for="auto-variative">АКПП вариатор<img src="img/calculator/cross.svg"></label>
+                      </div>
+                      <div class="form-group">
+                        <input type="checkbox" name="auto-robo" id="auto-robo" value="100">
+                        <label for="auto-robo">АКПП робот<img src="img/calculator/cross.svg"></label>
+                      </div>
+                  </li>
+                  <li hidden="true">
+                    <div class="title clearfix">
+                      <h4>Кузов</h4>
+                    </div>
+                  </li>
+                  <li hidden="true">
+                    <div class="title clearfix">
+                      <h4>Салон</h4>
+                    </div>
+                  </li>
+                  <li hidden="true">
+                    <div class="title clearfix">
+                      <h4>Электроника</h4>
+                    </div>
+                  </li>
+                  <li hidden="true">
+                    <div class="title clearfix">
+                      <h4>Комплектация</h4>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="control clearfix">
+            <div class="result align">
+              <div class="total align">
+                <h4>Итого:</h4>
+              </div>
+              <div class="price align">Р <span class="sum">0</span></div>
+            </div>
+            <input class="btn align" type="submit" value="Отправить заявку">
+            <div class="clear-params">
+              <div class="reset-params">
+                <img src="img/calculator/trash.svg"> Сбросить параметры
+              </div>
+              <div class="page-lister">
+                <div class="btn arrow left-arrow disabled"></div>
+                <div class="page"><span class='page-number'>01</span> / 06</div>
+                <div class="btn arrow right-arrow"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </article>
+
+    <article class="info"><a name="service"></a>
+      <div class="big-container">
+        <div class="container">
+          <div class="info-part part-1 clearfix">
+            <img src="img/info/1.svg">
+            <div class="text">
+              <h3>Срочный выкуп авто<br>в Ростове</h3>
+              <p>Ваш автомобиль уже отжил свое время? Случилась авария? Вашей компании нужно обновить автопарк и
+                выгодно избавиться от старого транспорта? “Комета Авто” к вашим услугам!</p>
+              <p>Мы предлагаем срочный выкуп авто в Ростове и Ростовской области. Такой же быстрый, как комета, такой
+                же надежный, как новенький Porsche!</p>
+            </div>
+          </div>
+
+          <div class="info-part part-2">
+            <!--<img src="img/info/2.svg">-->
+            <div class="auto-enabled">
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-1.svg">
+                <div class="description">После ДТП</div>
+              </div>
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-2.svg">
+                <div class="description">После пожара</div>
+              </div>
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-3.svg">
+                <div class="description">Грузовые<br> до 3,5 т</div>
+              </div>
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-4.svg">
+                <div class="description">Кредитные</div>
+              </div>
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-5.svg">
+                <div class="description">Любой марки</div>
+              </div>
+              <div class="auto-enable-item">
+                <img src="img/info/auto-enable-6.svg">
+                <div class="description">Мотоцикл</div>
+              </div>
+            </div>
+            <div class="text">
+              <h3>Какие авто<br>мы принимаем?</h3>
+              <p>Устали вкладывать средства в ремонт старого железного коня? Остановите эту бессмысленную утечку
+                финансов, лучше продайте его и вложите полученную сумму в новый автомобиль вашей мечты! Если ваша
+                машина уже не на ходу или у вас нет времени
+                подъехать к нашему центру выкупа авто в Ростове — вызовите наш эвакуатор или оценщика совершенно
+                бесплатно!</p>
+              <p>Если коротко, то любые, от потрепанных жизнью ВАЗов до элитных иномарок, с любыми неисправностями и
+                внешними дефектами. Примем такие автомобили:</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-part part-3">
+          <div class="container">
+            <img src="img/info/3.svg">
+            <div class="text">
+              <div class="faq faq-1">
+                <div class="question">
+                  <p><b>Что потребуется от вас, чтобы срочно и дорого продать авто?</b></p>
+                  <div class="btn more plus" onclick=openAnswer(1)>
+                  </div>
+                </div>
+                <div class="answer hide">
+                  <p>Здраствуйте. Я, Кирилл. Хотел бы чтобы вы сделали игру, 3Д-экшон суть такова... Пользователь может
+                    играть лесными эльфами, охраной дворца и злодеем. И если пользователь играет эльфами то эльфы в
+                    лесу, домики деревяные набигают солдаты
+                    дворца и злодеи. Можно грабить корованы... И эльфу раз лесные то сделать так что там густой лес...
+                    А движок можно поставить так что вдали деревья картинкой, когда подходиш они преобразовываются в
+                    3-хмерные деревья[1]. Можно покупать
+                    и т.п. возможности как в Daggerfall. И враги 3-хмерные тоже, и труп тоже 3д. Можно прыгать и т.п.
+                    Если играть за охрану дворца то надо слушаться командира, и защищать дворец от злого (имя я не
+                    придумал) и шпионов, партизанов эльфов,
+                    и ходит на набеги на когото из этих (эльфов, злого...). Ну а если за злого... то значит шпионы или
+                    партизаны эльфов иногда нападают, пользователь сам себе командир может делать что сам захочет
+                    прикажет своим войскам с ним самим напасть
+                    на дворец и пойдет в атаку. Всего в игре 4 зоны. Т.е. карта и на ней есть 4 зоны, 1 - зона людей
+                    (нейтрал), 2- зона императора (где дворец), 3-зона эльфов, 4 - зона злого... (в горах, там есть
+                    старый форт...) Так же чтобы в игре могли
+                    не только убить но и отрубить руку и если пользователя не вылечат то он умрет, так же выколоть глаз
+                    но пользователь может не умереть а просто пол экрана не видеть, или достать или купить протез, если
+                    ногу тоже либо умреш либо будеш
+                    ползать либо на коляске котаться, или самое хорошее... поставить протез. Сохранятся можно... <br>P.S.
+                    Я джва года хочу такую игру.</p>
+                </div>
+              </div>
+              <div class="faq faq-2">
+                <div class="question">
+                  <p><b>Насколько быстро мы выкупим ваше авто?</b></p>
+                  <div class="btn more minus" onclick=openAnswer(2)>
+                  </div>
+                </div>
+                <div class="answer">
+                  <p>Мы провели более 4000 подобных сделок, поэтому действуем максимально быстро: осмотр — оформление
+                    договора — оплата. Все довольны! Нужно срочно продать автомобиль? С момента вашего звонка до денег
+                    у вас на руках пройдет всего 1 час! Не
+                    верите? Проверьте скорость “Кометы Авто” прямо сейчас, свяжитесь с нами любым удобным способом!
+                    Остались вопросы? Загляните в FAQ, возможно, мы уже ответили на них!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="more-info">
+      <div class="container">
+        <div class="info">
+          <div class="info-item">
+            <h4>Авто после ДТП</h4>
+            <p>Выкуп авто в Ростове-на-Дону — не такой долгий процесс, как мы привыкли думать. С момента оценки до
+              подписания договора и получения денег проходит 3-4 часов. Срочный выкуп авто после ДТП — не больше 1
+              часа!</p>
+          </div>
+          <div class="info-item">
+            <h4>Неисправные авто</h4>
+            <p>Скупка неисправного автомобиля проходит всего за несколько часов, что является существенной экономией
+              времени. У вас не будет необходимости никуда ездить, вызывать эвакуатор и перевозить машину. </p>
+          </div>
+          <div class="info-item">
+            <h4>Срочный выкуп за час</h4>
+            <p>Скупка неисправного автомобиля проходит всего за несколько часов, что является существенной экономией
+              времени. У вас не будет необходимости никуда ездить, вызывать эвакуатор и перевозить машину. </p>
+          </div>
+          <div class="info-item">
+            <h4>Выкуп битых авто</h4>
+            <p>К сожалению, аварии и ДТП на наших дорогах не являются редкостью. Зачастую после дорожного происшествия
+              автомобиль приходит в полную негодность и его восстановление из-за дороговизны ремонта не имеет смысла.</p>
+          </div>
+          <div class="info-item">
+            <h4>Авто с области</h4>
+            <p>Аварийные автомобили покупают неохотно и долго, поэтому удобнее отдать машину в скупку в нашу компанию!
+              Если вы живете в Ростовской области, свяжитесь с нами и мы обязательно решим вашу проблему с автомобилем.</p>
+          </div>
+          <div class="info-item">
+            <h4>Выкуп после аварии</h4>
+            <p>Аварийные автомобили покупают неохотно и долго, поэтому удобнее отдать машину в скупку в нашу компанию!
+              Если вы живете в Ростовской области, свяжитесь с нами и мы обязательно решим вашу проблему с автомобилем.
+            </p>
+          </div>
+        </div>
+        <div class="how-we-work">
+          <h3>Как мы работаем</h3>
+          <div class="flex-container">
+            <div class="how-work-item">
+              <div class="item-number">
+                01
+              </div>
+              <div class="line"></div>
+              <div class="description">
+                <p>При заявке с сайта или вашем звонке мы сразу оговариваем удобную вам стоимость выкупа. При нашей
+                  встречи стоимость не изменится. </p>
+              </div>
+            </div>
+            <div class="outside-line"></div>
+            <div class="how-work-item">
+              <div class="item-number">
+                02
+              </div>
+              <div class="line"></div>
+              <div class="description">
+                <p>Осмотр автомобиля происходит на нашей площадке. Заключаем пакетдокументов и гарантируем полную
+                  прозрачность сделки с официальной отчетностью.</p>
+              </div>
+            </div>
+            <div class="outside-line"></div>
+            <div class="how-work-item">
+              <div class="item-number">
+                03
+              </div>
+              <div class="line"></div>
+              <div class="description">
+                <p>Получение вами оплаты за продаваемый автомобиль происходит в течении 30 минут, на месте. Так же мы
+                  предоставляем выгодные условия trade-in</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="big-container">
+        <div class="background-half"></div>
+      </div>
+    </article>
+
+    <article class="advices"><a name="advices"></a>
+      <div class="big-container">
+        <div class="container clearfix">
+          <h3>Советы при продаже</h3>
+          <div class="flex-container">
+            <div class="advice-item">
+              <img src="img/advice/1.svg" alt="money">
+              <div class="p-background">
+                <p>Не соглашайтесь продавать агрегат первому покупателю или попавшейся компании. Всегда ищете второго
+                  человека либо организацию, с которой можно сравнивать цену. Запомните, 2-3 % в стоимости – это
+                  большая разница.</p>
+              </div>
+            </div>
+            <div class="advice-item">
+              <img src="img/advice/2.svg" alt="person">
+              <div class="p-background">
+                <p>Перед продажей перекупщикам обязательно обратитесь в независимый центр оценки стоимости авто.
+                  Заплатите немного денег, но будьте уверены, что вам не занизят стоимость автотранспорта. Не сделав
+                  этого потерять можно гораздо больше.</p>
+              </div>
+            </div>
+            <div class="advice-item">
+              <img src="img/advice/3.svg" alt="car-washing">
+              <div class="p-background">
+                <p>Конечно, на внешний вид транспорта мало обращают внимания, ведь агрегат бит, что там поймешь. Однако
+                  постарайтесь привести свою машину в максимально привлекательный вид перед продажей, так можно
+                  запросить больше денег, или хотя бы попытаться.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+
+    <div class="big-container colored">
+      <div class="blogs">
+        <div class="blog left-blog">
+          <h3>Используйте «Водительский язык»</h3>
+          <p>Срочно продаете машину? Узнайте как быстро и эфективно подготовить автомобиль к продаже.</p>
+        </div>
+        <div class="blog main-blog">
+          <h3>Как правильно буксировать машину</h3>
+          <p>Срочно продаете машину?<br> Узнайте как быстро и эфективно подготовить автомобиль к продаже.</p>
+
+        </div>
+        <div class="blog right-blog">
+          <h3>Стоимость переофомления авто</h3>
+          <p>Срочно продаете машину?<br> Узнайте как быстро и эфективно подготовить автомобиль к продаже.</p>
+        </div>
+      </div>
+    </div>
+
+    <article class="contacts">
+      <div class="big-container">
+        <a name="contacts"></a>
+        <div class="map">
+          <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Acd1110b7b44eb2e317e1eb0e98f5d34f09fbfd46ccfcd6de7534106d1a7348be&amp;source=constructor"
+            width="1440" height="420" frameborder="0"></iframe> </div>
+        <div class="container">
+          <div class="title clearfix">
+            <h3>Контакты</h3>
+            <div class="btn btn-call-request button-open">
+              Заказать звонок
+              <img src="img/promo/phone-request-back.svg">
+              <img class="phone" src="img/promo/phone-request.svg">
+            </div>
+            <!--
+            <div class="modal">
+              <div class="modal__content">
+                <h2 class="visually-hidden">Заказать звонок</h2>
+                <form class="request-call-form" method="POST" target="area">
+                  <p class="super-forma">Введите свои контактные данные:</p>
+                  <div class="form clearfix">
+                    <div class="half-form-group">
+                      <label for="name">Ваше имя</label><br>
+                      <input type="text" id="name" placeholder="Иван">
+                    </div>
+                    <div class="half-form-group">
+                      <label for="phone">Ваш телефон</label><br>
+                      <input type="tel" id="phone" placeholder="+7 (919) 899-95-60">
+                    </div>
+                  </div>
+                  <input class="btn btn-call-request" type="submit" value="Отправить">
+                  <input class="btn btn-cancel button-close" type="button" value="Отмена">
+                </form>
+                <button class="modal__button button-close" type="button" value="Закрыть">X</button>
+              </div>
+            </div>
+                -->
+            <a href="https://wa.me/79896279597?text=Опишите%20ваши%20хотелки%20" target="_blank">
+              <div class="btn btn-whatsup">Написать в WhatsApp</div>
+            </a>
+          </div>
+          <div class="contacts-table">
+            <div class="item adress">ул. Малиновского 200 д, <br> 1-я плошадка, <br> слева от здания Сельмаша</div>
+            <div class="item work-time">Пн-Сб: с 9:00 до 20:00<br> Вс: c 11:00 до 16:00</div>
+            <div class="item tel-and-email">+7 (863) 221-59-55<br> sell@vikupauto.ru</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="big-container">
+      <div class="clearfix">
+        <nav>
+          <ul>
+            <li><a href="#top">Главная</a></li>
+            <li><a href="#service">Наши услуги</a></li>
+            <li><a href="#calculator">Расчет стоимости</a></li>
+            <li><a href="#advices">Советы</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+          </ul>
+        </nav>
+        <div class="social">
+          <div class="btn vk">
+            <a href="#"><img src="img/vk.svg"></a>
+          </div>
+          <div class="btn in">
+            <a href="#"><img src="img/Instagram.svg"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
